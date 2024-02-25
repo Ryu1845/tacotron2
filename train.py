@@ -2,6 +2,8 @@ import os
 import time
 import argparse
 import math
+from pickle import dump
+
 from numpy import finfo
 
 import torch
@@ -15,6 +17,16 @@ from data_utils import TextMelLoader, TextMelCollate
 from loss_function import Tacotron2Loss
 from logger import Tacotron2Logger
 from hparams import create_hparams
+
+#torch.cuda.memory._record_memory_history()
+
+def oom_observer(device, alloc, device_alloc, device_free):
+    # snapshot right after an OOM happened
+    print('saving allocated state during OOM')
+    snapshot = torch.cuda.memory._snapshot()
+    dump(snapshot, open('oom_snapshot.pickle', 'wb'))
+
+torch._C._cuda_attach_out_of_memory_observer(oom_observer)
 
 
 def reduce_tensor(tensor, n_gpus):

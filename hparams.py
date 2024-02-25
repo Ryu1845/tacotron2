@@ -1,11 +1,11 @@
-import tensorflow as tf
+from types import SimpleNamespace
 from text import symbols
 
 
 def create_hparams(hparams_string=None, verbose=False):
     """Create model hyperparameters. Parse nondefault from given string."""
 
-    hparams = tf.contrib.training.HParams(
+    hparams = SimpleNamespace(
         ################################
         # Experiment Parameters        #
         ################################
@@ -81,15 +81,7 @@ def create_hparams(hparams_string=None, verbose=False):
         learning_rate=1e-3,
         weight_decay=1e-6,
         grad_clip_thresh=1.0,
-        batch_size=64,
+        batch_size=16,
         mask_padding=True  # set model's padded outputs to padded values
     )
-
-    if hparams_string:
-        tf.logging.info('Parsing command line hparams: %s', hparams_string)
-        hparams.parse(hparams_string)
-
-    if verbose:
-        tf.logging.info('Final parsed hparams: %s', hparams.values())
-
     return hparams

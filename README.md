@@ -1,3 +1,16 @@
+# TODO
+- [ ] Reproduce training (repeat in between ~every step)
+- [ ] Refactor the code (if needed)
+- [ ] Use lhotse for the data
+- [ ] Use composer (and proper wandb logging)
+- [ ] Add multigpu support (if needed)
+
+After this will probably be in another repo
+
+- [ ] Swap in a transformer instead of the current enc-dec (i.e. Transformer-TTS)
+- [ ] Replace the transformer with a pretrained {By,m,}T5
+- [ ] Replace the postnet with ConvNeXt layers
+
 # Tacotron 2 (without wavenet)
 
 PyTorch implementation of [Natural TTS Synthesis By Conditioning
